@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/blog
+    username: postgres
+    password: wiseholo
+    driver-class-name: org.postgresql.Driver
