@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost/blog
+    url: jdbc:postgresql://localhost:32768/milky-way
     username: postgres
-    password: wiseholo
+    password: milkyway
     driver-class-name: org.postgresql.Driver

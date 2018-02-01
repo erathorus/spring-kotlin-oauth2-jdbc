@@ -41,10 +41,11 @@ repositories {
 }
 
 noArg {
-	annotation("me.horo.blog.annotation.NoArg")
+	annotation("me.horo.milkyway.annotation.NoArg")
 }
 
 dependencies {
+	compile('org.springframework.boot:spring-boot-starter-websocket')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.security.oauth:spring-security-oauth2:2.2.1.RELEASE')
