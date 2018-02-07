@@ -1,7 +1,6 @@
 package me.horo.milkyway.config
 
-import me.horo.milkyway.repository.UserRepository
-import me.horo.milkyway.service.UserService
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
@@ -16,17 +15,18 @@ import org.springframework.security.crypto.password.PasswordEncoder
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration(
-        private val userService: UserService
+        @Qualifier("userDetailsServiceImpl")
+        private val userDetailsService: UserDetailsService
 ) : WebSecurityConfigurerAdapter() {
     @Bean
     fun passwordEncoder(): PasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
 
     override fun configure(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService(UserDetailsService { username -> userService.findByUsername(username) })
+        auth.userDetailsService(userDetailsService)
     }
 
     override fun configure(http: HttpSecurity) {
-        http.authorizeRequests().anyRequest().authenticated()
+        http.formLogin().and().authorizeRequests().anyRequest().authenticated()
     }
 
     @Bean

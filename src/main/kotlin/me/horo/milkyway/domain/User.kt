@@ -7,10 +7,11 @@ import javax.persistence.*
 
 @Entity
 @NoArg
+@Table(name = "\"user\"")
 data class User(
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Long,
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private val id: Long = 0,
 
         @Column(nullable = false, unique = true)
         private var username: String,
@@ -24,7 +25,10 @@ data class User(
                 joinColumns = [JoinColumn(name = "user_id")],
                 inverseJoinColumns = [JoinColumn(name = "role_id")]
         )
-        private var roles: Set<Role> = HashSet(),
+        val roles: Set<Role> = HashSet(),
+
+        @Transient
+        private var authorities: MutableCollection<out GrantedAuthority> = HashSet(),
 
         @Column(name = "non_expired", nullable = false)
         private val nonExpired: Boolean = true,
@@ -41,5 +45,25 @@ data class User(
     override fun isAccountNonLocked() = nonLocked
     override fun isEnabled() = enabled
     override fun isCredentialsNonExpired() = credentialsNonExpired
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> = HashSet()
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> = authorities
+
+    override fun hashCode(): Int {
+        if(id == 0L) {
+            return super.hashCode()
+        }
+        return id.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if(this === other) {
+            return true
+        }
+        if(other === null || other !is User){
+            return false
+        }
+        if(this::class != other::class){
+            return false
+        }
+        return id == other.id
+    }
 }

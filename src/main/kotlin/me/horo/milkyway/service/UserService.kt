@@ -1,8 +1,9 @@
 package me.horo.milkyway.service
 
 import me.horo.milkyway.domain.User
+import java.util.*
 
 interface UserService {
-    fun create(user: User): User
-    fun findByUsername(username: String): User
+    fun tryCreate(user: User): Optional<User>
+    fun findByUsername(username: String): Optional<User>
 }
