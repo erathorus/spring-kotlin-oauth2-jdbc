@@ -69,4 +69,51 @@
         </createTable>
         <addPrimaryKey tableName="user_role" columnNames="user_id, role_id" constraintName="pk_user_role"/>
     </changeSet>
+
+    <changeSet id="2" author="waterforce1205">
+        <createTable tableName="oauth_client_details">
+            <column name="client_id" type="VARCHAR">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="resource_ids" type="VARCHAR"/>
+            <column name="client_secret" type="VARCHAR"/>
+            <column name="scope" type="VARCHAR"/>
+            <column name="authorized_grant_types" type="VARCHAR"/>
+            <column name="web_server_redirect_uri" type="VARCHAR"/>
+            <column name="authorities" type="VARCHAR"/>
+            <column name="access_token_validity" type="VARCHAR"/>
+            <column name="refresh_token_validity" type="VARCHAR"/>
+            <column name="additional_information" type="VARCHAR"/>
+            <column name="autoapprove" type="VARCHAR"/>
+        </createTable>
+
+        <createTable tableName="oauth_client_token">
+            <column name="token_id" type="VARCHAR"/>
+            <column name="token" type="BLOB"/>
+            <column name="authentication_id" type="VARCHAR"/>
+            <column name="user_name" type="VARCHAR"/>
+            <column name="client_id" type="VARCHAR"/>
+        </createTable>
+
+        <createTable tableName="oauth_access_token">
+            <column name="token_id" type="VARCHAR"/>
+            <column name="token" type="BLOB"/>
+            <column name="authentication_id" type="VARCHAR"/>
+            <column name="user_name" type="VARCHAR"/>
+            <column name="client_id" type="VARCHAR"/>
+            <column name="authentication" type="BLOB"/>
+            <column name="refresh_token" type="VARCHAR"/>
+        </createTable>
+
+        <createTable tableName="oauth_refresh_token">
+            <column name="token_id" type="VARCHAR"/>
+            <column name="token" type="BLOB"/>
+            <column name="authentication" type="BLOB"/>
+        </createTable>
+
+        <createTable tableName="oauth_code">
+            <column name="code" type="VARCHAR"/>
+            <column name="authentication" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
