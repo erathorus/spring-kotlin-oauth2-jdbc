@@ -36,7 +36,13 @@ class OAuth2ResourceServerConfiguration(
         private val tokenStore: TokenStore
 ): ResourceServerConfigurerAdapter() {
     override fun configure(resources: ResourceServerSecurityConfigurer) {
-        resources.tokenStore(tokenStore)
+        resources
+                .tokenStore(tokenStore)
+                .resourceId(MILKYWAY_RESOURCE_ID)
+    }
+
+    companion object {
+        val MILKYWAY_RESOURCE_ID = "milky-way"
     }
 }
 

@@ -1,5 +1,6 @@
 package me.horo.milkyway.task
 
+import me.horo.milkyway.config.OAuth2ResourceServerConfiguration
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.ApplicationListener
@@ -31,7 +32,7 @@ class SetupOAuth2ClientDataTask(
 
     @Transactional
     override fun onApplicationEvent(event: ContextRefreshedEvent) {
-        if(alreadySetup) return
+        if (alreadySetup) return
         alreadySetup = true
 
         createClientIfNotExist(
@@ -39,12 +40,22 @@ class SetupOAuth2ClientDataTask(
                 secret = "secret",
                 scopes = hashSetOf("read", "write"),
                 authorizedGrantedType = hashSetOf("password", "refresh_token"),
-                resourceIds = hashSetOf(MILKYWAY_RESOURCE_ID),
-                authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_CLIENT, ROLE_TRUSTED_CLIENT").toSet())
+                resourceIds = hashSetOf(OAuth2ResourceServerConfiguration.MILKYWAY_RESOURCE_ID),
+                authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_CLIENT, ROLE_TRUSTED_CLIENT").toSet(),
+                accessTokenValiditySeconds = 60 * 24 * 7,
+                refreshTokenValiditySeconds = 60 * 24 * 30
+        )
     }
 
     @Transactional
-    fun createClientIfNotExist(client: String, secret: String, scopes: Set<String>, authorizedGrantedType: Set<String>, resourceIds: Set<String>, authorities: Set<GrantedAuthority>) {
+    fun createClientIfNotExist(client: String,
+                               secret: String,
+                               scopes: Set<String>,
+                               authorizedGrantedType: Set<String>,
+                               resourceIds: Set<String>,
+                               authorities: Set<GrantedAuthority>,
+                               accessTokenValiditySeconds: Int,
+                               refreshTokenValiditySeconds: Int) {
         try {
             service.loadClientByClientId(client)
         } catch (e: NoSuchClientException) {
@@ -55,13 +66,11 @@ class SetupOAuth2ClientDataTask(
             clientDetails.setResourceIds(resourceIds)
             clientDetails.setAuthorizedGrantTypes(authorizedGrantedType)
             clientDetails.authorities = authorities
+            clientDetails.accessTokenValiditySeconds = accessTokenValiditySeconds
+            clientDetails.refreshTokenValiditySeconds = refreshTokenValiditySeconds
             service.addClientDetails(clientDetails)
 
             logger.info("Successfully add $client client")
         }
-    }
-
-    companion object {
-        private val MILKYWAY_RESOURCE_ID = "milky-way"
     }
 }
