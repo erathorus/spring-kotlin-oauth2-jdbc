@@ -89,7 +89,7 @@
 
         <createTable tableName="oauth_client_token">
             <column name="token_id" type="VARCHAR"/>
-            <column name="token" type="BLOB"/>
+            <column name="token" type="BYTEA"/>
             <column name="authentication_id" type="VARCHAR"/>
             <column name="user_name" type="VARCHAR"/>
             <column name="client_id" type="VARCHAR"/>
@@ -97,18 +97,18 @@
 
         <createTable tableName="oauth_access_token">
             <column name="token_id" type="VARCHAR"/>
-            <column name="token" type="BLOB"/>
+            <column name="token" type="BYTEA"/>
             <column name="authentication_id" type="VARCHAR"/>
             <column name="user_name" type="VARCHAR"/>
             <column name="client_id" type="VARCHAR"/>
-            <column name="authentication" type="BLOB"/>
+            <column name="authentication" type="BYTEA"/>
             <column name="refresh_token" type="VARCHAR"/>
         </createTable>
 
         <createTable tableName="oauth_refresh_token">
             <column name="token_id" type="VARCHAR"/>
-            <column name="token" type="BLOB"/>
-            <column name="authentication" type="BLOB"/>
+            <column name="token" type="BYTEA"/>
+            <column name="authentication" type="BYTEA"/>
         </createTable>
 
         <createTable tableName="oauth_code">

@@ -3,6 +3,7 @@ package me.horo.milkyway.domain
 import me.horo.milkyway.annotation.NoArg
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import java.io.Serializable
 import javax.persistence.*
 
 @Entity
@@ -38,7 +39,7 @@ data class User(
         private val enabled: Boolean = true,
         @Column(name = "credentials_non_expired", nullable = false)
         private val credentialsNonExpired: Boolean = true
-): UserDetails {
+) : UserDetails, Serializable {
     override fun getUsername() = username
     override fun getPassword() = password
     override fun isAccountNonExpired() = nonExpired
@@ -48,20 +49,20 @@ data class User(
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> = authorities
 
     override fun hashCode(): Int {
-        if(id == 0L) {
+        if (id == 0L) {
             return super.hashCode()
         }
         return id.hashCode()
     }
 
     override fun equals(other: Any?): Boolean {
-        if(this === other) {
+        if (this === other) {
             return true
         }
-        if(other === null || other !is User){
+        if (other === null || other !is User) {
             return false
         }
-        if(this::class != other::class){
+        if (this::class != other::class) {
             return false
         }
         return id == other.id

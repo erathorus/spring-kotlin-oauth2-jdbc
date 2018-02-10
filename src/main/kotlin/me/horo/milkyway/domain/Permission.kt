@@ -1,6 +1,7 @@
 package me.horo.milkyway.domain
 
 import me.horo.milkyway.annotation.NoArg
+import java.io.Serializable
 import javax.persistence.*
 
 @Entity
@@ -15,7 +16,7 @@ data class Permission(
 
         @ManyToMany(mappedBy = "permissions", fetch = FetchType.LAZY)
         val roles: Set<Role> = HashSet()
-){
+) : Serializable {
     override fun hashCode(): Int {
         return name.hashCode()
     }
