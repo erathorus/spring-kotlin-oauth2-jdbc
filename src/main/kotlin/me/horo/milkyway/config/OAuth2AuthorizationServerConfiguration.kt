@@ -71,7 +71,9 @@ class OAuth2AuthorizationServerConfiguration(
     }
 
     override fun configure(security: AuthorizationServerSecurityConfigurer) {
-        security.realm("milkyway/client")
+        security
+                .realm("milkyway/client")
+                .checkTokenAccess("isAuthenticated()")
     }
 }
 
