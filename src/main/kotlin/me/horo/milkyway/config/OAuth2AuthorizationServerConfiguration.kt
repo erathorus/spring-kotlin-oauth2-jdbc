@@ -54,12 +54,7 @@ class OAuth2AuthorizationServerConfiguration(
         private val userDetailsService: UserDetailsService
 ) : AuthorizationServerConfigurerAdapter() {
     override fun configure(clients: ClientDetailsServiceConfigurer) {
-        clients.jdbc(dataSource)
-                .passwordEncoder(passwordEncoder)
-                .withClient("my-client")
-                .secret("secret")
-                .authorizedGrantTypes("password", "refresh_token")
-                .scopes("ui")
+        clients.jdbc(dataSource).passwordEncoder(passwordEncoder)
     }
 
     override fun configure(endpoints: AuthorizationServerEndpointsConfigurer) {

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
 @Component
-class SetupInitialDataTask(
+class SetupUserDataTask(
         private val userService: UserService,
         private val roleService: RoleService,
         private val permissionService: PermissionService
@@ -22,6 +22,7 @@ class SetupInitialDataTask(
     @Transactional
     override fun onApplicationEvent(event: ContextRefreshedEvent) {
         if (alreadySetup) return
+        alreadySetup = true
 
         val readPermission = createPermissionIfNotFound("READ_PERMISSION")
         val writePermission = createPermissionIfNotFound("WRITE_PERMISSION")
@@ -31,8 +32,6 @@ class SetupInitialDataTask(
 
         createUserIfNotFound("user1", "abcd1234", hashSetOf(adminRole, userRole))
         createUserIfNotFound("user2", "123456", hashSetOf(userRole))
-
-        alreadySetup = true
     }
 
     @Transactional
