@@ -1,7 +1,7 @@
 # Spring Boot 2 with Kotlin and Spring Security OAuth2
-This project is provide an production ready example of Spring Boot 2 and Spring Security OAuth2.
-It illustrate some great features in Kotlin as well as some changes in Spring Security 5 API.
-It use Jdbc to as the Token Store for OAuth2, which is the most complicated but is a requirement in production environment.
+This project provides an production ready example of Spring Boot 2 and Spring Security OAuth2.
+It illustrates some of awesome features of Kotlin as well as the changes in Spring Security 5 API.
+Jdbc is used as the Token Store for OAuth2 which is the most complicated way but at the same time is the requirement for production environment.
 
 ## Quick start
 First, you have to create a postgresql docker image:
