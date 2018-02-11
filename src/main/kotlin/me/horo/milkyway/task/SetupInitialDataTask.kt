@@ -27,8 +27,8 @@ class SetupUserDataTask(
         val readPermission = createPermissionIfNotFound("READ_PERMISSION")
         val writePermission = createPermissionIfNotFound("WRITE_PERMISSION")
 
-        val adminRole = createRoleIfNotFound("ADMIN", hashSetOf(readPermission, writePermission))
-        val userRole = createRoleIfNotFound("USER", hashSetOf(readPermission))
+        val adminRole = createRoleIfNotFound("ROLE_ADMIN", hashSetOf(readPermission, writePermission))
+        val userRole = createRoleIfNotFound("ROLE_USER", hashSetOf(readPermission))
 
         createUserIfNotFound("user1", "abcd1234", hashSetOf(adminRole, userRole))
         createUserIfNotFound("user2", "123456", hashSetOf(userRole))
