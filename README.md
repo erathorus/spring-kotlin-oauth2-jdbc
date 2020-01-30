@@ -1,5 +1,5 @@
 # Spring Boot 2 with Kotlin and Spring Security OAuth2
-This project provides a production ready example of Spring Boot 2 and Spring Security OAuth2.
+A production ready example of Spring Boot 2 and Spring Security OAuth2.
 
 ## Quick start
 First, you have to create a postgresql docker image:
