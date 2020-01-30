@@ -2,18 +2,20 @@
 A production ready example of Spring Boot 2 and Spring Security OAuth2.
 
 ## Quick start
-First, you have to create a postgresql docker image:
+First, create a Postgres container:
 ~~~
 docker run --name milky-way -p 5432:5432 -e POSTGRES_DB=milky-way -e POSTGRES_PASSWORD=milkyway -d postgres
 ~~~
 
-To run the project using Spring Boot:
+Next, start the project:
 ~~~
 ./gradlew bootRun # On Unix
 .\gradlew.bat bootRun # On Windows
 ~~~
 
-Spring Boot will run on port `8080`. In order to request a new token:
+Spring Boot will run on port `8080`.
+
+To request a new token:
 ~~~
 curl -X POST --user 'my-client:secret' -d 'grant_type=password&username=user1&password=abcd1234' http://localhost:8080/oauth/token
 ~~~
